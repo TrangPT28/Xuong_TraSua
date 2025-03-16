@@ -1,0 +1,77 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Trà sữa trân châu đường đen",
+        "price": 45000,
+        "category": "Trà sữa",
+        "image": "https://example.com/images/tra-sua-tran-chau.jpg",
+        "description": "Trà sữa thơm ngon với trân châu đường đen dẻo dai."
+      },
+      {
+        "id": 2,
+        "name": "Trà đào cam sả",
+        "price": 40000,
+        "category": "Trà trái cây",
+        "image": "https://example.com/images/tra-dao.jpg",
+        "description": "Trà đào thơm mát với cam sả tươi."
+      },
+      {
+        "id": 3,
+        "name": "Trà matcha latte",
+        "price": 50000,
+        "category": "Trà sữa",
+        "image": "https://example.com/images/matcha-latte.jpg",
+        "description": "Matcha nguyên chất kết hợp với sữa tươi."
+      }
+    ],
+    "categories": [
+      { "id": 1, "name": "Trà sữa" },
+      { "id": 2, "name": "Trà trái cây" },
+      { "id": 3, "name": "Cà phê" }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "name": "he lô mài nha",
+        "email": "duc@gmail.com",
+        "password": "123456",
+        "role": "admin"
+      },
+      {
+        "id": 2,
+        "name": "ôi xưởng trà sữa",
+        "email": "hainuaroido@gmail.com",
+        "password": "123456",
+        "role": "user"
+      }
+    ],
+    "orders": [
+    {
+      "id": 1,
+      "name": "PT Trang",
+      "phone": "0987654321",
+      "items": [
+        { "productId": 1, "quantity": 2, "price": 45000 },
+        { "productId": 3, "quantity": 1, "price": 50000 }
+      ],
+      "total": 140000,
+      "status": "Chờ xác nhận",
+      "date": "2025-03-14"
+    },
+    {
+      "id": 2,
+      "name": "Lê Văn Đức",
+      "phone": "0385068534",
+      "items": [
+        { "productId": 2, "quantity": 1, "price": 40000 },
+        { "productId": 4, "quantity": 2, "price": 35000 }
+      ],
+      "total": 110000,
+      "status": "Đã giao",
+      "date": "2025-03-13"
+    }
+  ]
+  }
+  
+  
