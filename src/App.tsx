@@ -2,7 +2,7 @@
 import './App.css'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import Authenticated from './components/Authenticated'
-import ListProducts from './pages/ListProducts'
+
 import AddProducts from './pages/Products/_components/AddProducts'
 import LayoutAdmin from './components/LayoutAdmin'
 import Login from './pages/Login'
@@ -10,6 +10,8 @@ import Dashboard from './pages/Dashboard'
 import LayoutHome from './components/LayoutHome'
 import Cart from './pages/Cart'
 import Register from './pages/Register'
+import ListProducts from './pages/Products/_components/ListProducts'
+import ListProductClien from './pages/ListProductClien'
 
 function App() {
 
@@ -36,7 +38,7 @@ function App() {
         </Route>
 
         <Route path="login" element={<Login />} />
-        <Route path='register' element={<Register/>} />
+        <Route path='register' element={<Register />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
 
         <Route path='home'
@@ -46,14 +48,12 @@ function App() {
                 <Outlet />
               </LayoutHome>
             </Authenticated>
-          } />
-          <Route path='home'>
-            <Route path='cart' element={<Cart/>} />
+          }>
+            <Route index element={<Navigate to='ListProductClien' />} />
+            <Route path='ListProductClien' element={<ListProductClien />} />
+          <Route path='cart' element={<Cart />} />
 
-
-          </Route>
-
-
+        </Route>
       </Routes>
 
     </>

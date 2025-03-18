@@ -1,23 +1,39 @@
 import { Link } from "react-router-dom";
+
+import { FaUser, FaSearch, FaHeart, FaShoppingCart } from "react-icons/fa";
 const Header = () => {
     return (
-        <div className="header">
-            <div className="header__logo">
-                {/* <img src={logo} alt="logo" /> */}
+        <header className="bg-white shadow-md p-4">
+            <div className="container mx-auto flex justify-between items-center">
+                {/* Logo */}
+                <div className="text-2xl font-bold text-gray-800 flex items-center">
+                    <span className="text-yellow-600 text-3xl">⚠️</span>
+                    <span className="ml-2">Furniro</span>
+                </div>
+
+                {/* Navigation Menu */}
+                <nav>
+                    <ul className="flex space-x-6 text-gray-600 font-medium">
+                        <li className="hover:text-black cursor-pointer"><Link to="ListProductClien">Home</Link></li>
+                        <li className="hover:text-black cursor-pointer">Shop</li>
+                        <li className="hover:text-black cursor-pointer">About</li>
+                        <li className="hover:text-black cursor-pointer">Contact</li>
+                    </ul>
+                </nav>
+
+                {/* Icons */}
+                <div className="flex space-x-4 text-gray-600">
+                    <FaUser className="text-xl hover:text-black cursor-pointer" />
+                    <FaSearch className="text-xl hover:text-black cursor-pointer" />
+                    <FaHeart className="text-xl hover:text-black cursor-pointer" />
+
+                    <Link to="cart">
+                        <FaShoppingCart className="text-xl hover:text-black cursor-pointer" />
+                    </Link>
+
+                </div>
             </div>
-            <div className="header__search">
-                <input type="text" placeholder="Tìm kiếm" />
-                <button>
-                    <i className="fas fa-search"></i>
-                </button>
-            </div>
-            <div className="header__cart">
-                <Link to="/">
-                    <i className="fas fa-shopping-cart"></i>
-                </Link>
-                <span>0</span>
-            </div>
-        </div>
+        </header>
     );
 };
 
