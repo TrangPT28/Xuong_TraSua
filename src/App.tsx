@@ -8,7 +8,6 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import LayoutHome from './components/LayoutHome'
 import Cart from './pages/Cart'
-import Register from './pages/Register'
 import UpdateProducts from './pages/Products/_components/UpdateProducts'
 import ProductDetail from './pages/Products/_components/ProductDetail'
 import CartDetail from './pages/CartDetail'
@@ -41,7 +40,6 @@ function App() {
         </Route>
 
         <Route path="login" element={<Login />} />
-        <Route path='register' element={<Register />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
 
         <Route path='home'
