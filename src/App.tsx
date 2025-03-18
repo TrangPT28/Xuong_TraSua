@@ -10,6 +10,9 @@ import Dashboard from './pages/Dashboard'
 import LayoutHome from './components/LayoutHome'
 import Cart from './pages/Cart'
 import Register from './pages/Register'
+import UpdateProducts from './pages/Products/_components/UpdateProducts'
+import ProductDetail from './pages/Products/_components/ProductDetail'
+import CartDetail from './pages/CartDetail'
 
 function App() {
 
@@ -30,7 +33,7 @@ function App() {
           <Route path='products'>
             <Route index element={<ListProducts />} />
             <Route path='add' element={<AddProducts />} />
-            <Route path='update/:id' element={<AddProducts />} />
+            <Route path='update/:id' element={<UpdateProducts />} />
           </Route>
 
         </Route>
@@ -49,8 +52,8 @@ function App() {
           } />
           <Route path='home'>
             <Route path='cart' element={<Cart/>} />
-
-
+            <Route path='products/detail' element={<ProductDetail />} />
+            <Route path='cartdetail' element={<CartDetail />} />
           </Route>
 
 
