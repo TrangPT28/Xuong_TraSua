@@ -1,7 +1,9 @@
+import "remixicon/fonts/remixicon.css";
+
 const Cart = () => {
   return (
     <>
-      <header className="flex justify-between items-center px-8 py-4 shadow-md bg-white border-b">
+      <header className="flex justify-between items-center px-8 py-4 shadow-md bg-white">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <span className="text-yellow-700 text-2xl font-bold">&#x1F54A;</span>
@@ -103,9 +105,9 @@ const Cart = () => {
                   <td className="p-6 text-gray-800 text-lg font-semibold">
                     Rs. 250,000.00
                   </td>
-                  <td className="p-6 text-center text-yellow-700 cursor-pointer text-2xl">
-                    &#128465;
-                  </td>
+                  
+                    <i className="ri-delete-bin-6-line text-[#B88E2F] text-2xl font-bold flex justify-between items-center p-12"></i>
+                  
                 </tr>
               </tbody>
             </table>
@@ -220,7 +222,9 @@ const Cart = () => {
                 placeholder="Enter Your Email Address"
                 className="flex-1 bg-transparent outline-none text-gray-600 border-b"
               />
-              <button className="text-black font-semibold border-b">SUBSCRIBE</button>
+              <button className="text-black font-semibold border-b">
+                SUBSCRIBE
+              </button>
             </div>
           </div>
         </div>
