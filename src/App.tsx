@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard'
 import LayoutHome from './components/LayoutHome'
 import Cart from './pages/Cart'
 import Register from './pages/Register'
+import Category from './pages/Category'
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
           </Route>
 
         </Route>
-
+        <Route path='category' element={<Category/>}/>
         <Route path="login" element={<Login />} />
         <Route path='register' element={<Register/>} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
