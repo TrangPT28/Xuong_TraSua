@@ -2,7 +2,6 @@
 import './App.css'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import Authenticated from './components/Authenticated'
-import ListProducts from './pages/ListProducts'
 import AddProducts from './pages/Products/_components/AddProducts'
 import LayoutAdmin from './components/LayoutAdmin'
 import Login from './pages/Login'
@@ -13,6 +12,9 @@ import Register from './pages/Register'
 import UpdateProducts from './pages/Products/_components/UpdateProducts'
 import ProductDetail from './pages/Products/_components/ProductDetail'
 import CartDetail from './pages/CartDetail'
+import ListProducts from './pages/Products/_components/ListProducts'
+import ListProductClien from './pages/ListProductClien'
+
 
 function App() {
 
@@ -39,7 +41,7 @@ function App() {
         </Route>
 
         <Route path="login" element={<Login />} />
-        <Route path='register' element={<Register/>} />
+        <Route path='register' element={<Register />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
 
         <Route path='home'
@@ -49,14 +51,15 @@ function App() {
                 <Outlet />
               </LayoutHome>
             </Authenticated>
-          } />
-          <Route path='home'>
-            <Route path='cart' element={<Cart/>} />
+          }>
+          <Route index element={<Navigate to='ListProductClien' />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='ListProductClien'>
+            <Route index element={<ListProductClien />} />
             <Route path='products/detail' element={<ProductDetail />} />
-            <Route path='cartdetail' element={<CartDetail />} />
           </Route>
-
-
+          <Route path='cartdetail' element={<CartDetail />} />
+        </Route>
       </Routes>
 
     </>
