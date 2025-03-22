@@ -53,7 +53,7 @@ function App() {
           }>
           <Route index element={<Navigate to='ListProductClien' />} />
           <Route path='cart' element={<Cart />} />
-          <Route path='ListProductClien'>
+          <Route path='ListProductClient'>
             <Route index element={<ListProductClien />} />
             <Route path='products/detail' element={<ProductDetail />} />
           </Route>
