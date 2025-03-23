@@ -35,8 +35,8 @@ function App() {
             <Route index element={<ListProducts />} />
             <Route path='add' element={<AddProducts />} />
             <Route path='update/:id' element={<UpdateProducts />} />
+            <Route path='cartdetail' element={<CartDetail />} />
           </Route>
-          <Route path='cartdetail' element={<CartDetail />} />
 
         </Route>
 
@@ -57,7 +57,6 @@ function App() {
             <Route index element={<ListProductClien />} />
             <Route path='products/detail' element={<ProductDetail />} />
           </Route>
-
         </Route>
       </Routes>
 
