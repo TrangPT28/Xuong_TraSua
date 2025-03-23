@@ -39,11 +39,8 @@ function App() {
           </Route>
 
         </Route>
-
         <Route path="login" element={<Login />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-
-        <Route path='home'
+        <Route path=''
           element={
             <Authenticated fallback={<Navigate to='login' />}>
               <LayoutHome>
@@ -56,8 +53,12 @@ function App() {
             <Route index element={<ListProductClien />} />
             <Route path='detail' element={<ProductDetail />} />
           </Route>
+          
           <Route path='cart' element={<Cart />} />
         </Route>
+
+        
+        <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
 
     </>

@@ -23,7 +23,10 @@ const Header = () => {
 
                 {/* Icons */}
                 <div className="flex space-x-4 text-gray-600">
-                    <FaUser className="text-xl hover:text-black cursor-pointer" />
+                    <Link to="Login">
+                        <FaUser className="text-xl hover:text-black cursor-pointer" />
+                    </Link>
+
                     <FaSearch className="text-xl hover:text-black cursor-pointer" />
                     <FaHeart className="text-xl hover:text-black cursor-pointer" />
 
