@@ -1,9 +1,13 @@
+import React from "react";
 
-import { AuthenticatedProps } from "../Types/typerAuthen";
+type Props = {
+    children: React.ReactNode;
+    fallback: React.ReactNode;
+};
 
-
-const Authenticated = ({ children, fallback }: AuthenticatedProps) => {
-    return children ? <>{children}</> : <>{fallback}</>;
+const Authenticated = ({ children, fallback }: Props) => {
+    const isAuthenticated = true;
+    return <>{isAuthenticated ? children : fallback}</>;
 };
 
 export default Authenticated;

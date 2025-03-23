@@ -2,17 +2,17 @@
 import './App.css'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import Authenticated from './components/Authenticated'
-import AddProducts from './pages/Products/_components/AddProducts'
 import LayoutAdmin from './components/LayoutAdmin'
-import Login from './pages/Login'
+import Login from './pages/Login/Login'
 import Dashboard from './pages/Dashboard'
 import LayoutHome from './components/LayoutHome'
-import Cart from './pages/Cart'
-import UpdateProducts from './pages/Products/_components/UpdateProducts'
-import ProductDetail from './pages/Products/_components/ProductDetail'
-import CartDetail from './pages/CartDetail'
-import ListProducts from './pages/Products/_components/ListProducts'
-import ListProductClien from './pages/ListProductClien'
+import Cart from './pages/Cart/Cart'
+import CartDetail from './pages/Cart/CartDetail'
+import ListProductClien from './pages/ListClien/ListProductClien'
+import ProductEdit from './pages/Products/edit'
+import ProductAdd from './pages/Products/creater'
+import ProductDetail from './pages/ListClien/ProductDetail'
+import PostsPage from './pages/Products/listProducts'
 
 
 function App() {
@@ -32,9 +32,9 @@ function App() {
           <Route index element={<Navigate to='dashboard' />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='products'>
-            <Route index element={<ListProducts />} />
-            <Route path='add' element={<AddProducts />} />
-            <Route path='update/:id' element={<UpdateProducts />} />
+            <Route index element={<PostsPage />} />
+            <Route path='add' element={<ProductAdd />} />
+            <Route path='update/:id' element={<ProductEdit />} />
             <Route path='cartdetail' element={<CartDetail />} />
           </Route>
 
@@ -52,11 +52,11 @@ function App() {
             </Authenticated>
           }>
           <Route index element={<Navigate to='ListProductClien' />} />
-          <Route path='cart' element={<Cart />} />
           <Route path='ListProductClien'>
             <Route index element={<ListProductClien />} />
-            <Route path='products/detail' element={<ProductDetail />} />
+            <Route path='detail' element={<ProductDetail />} />
           </Route>
+          <Route path='cart' element={<Cart />} />
         </Route>
       </Routes>
 

@@ -1,10 +1,8 @@
 import { Button } from "antd";
-
-
 const ListProductClien = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
-      {/* Hero Section */}
+      Hero Section
       <section className="relative flex flex-col items-center justify-center text-center py-20">
         <div className="absolute top-0 left-0 w-full h-full bg-white opacity-75" />
         <div className="relative z-10 max-w-lg p-6 bg-yellow-100 rounded-lg shadow-md">

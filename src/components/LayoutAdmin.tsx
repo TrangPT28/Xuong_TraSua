@@ -1,55 +1,76 @@
-import { ReactNode } from "react";import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import {
+    DesktopOutlined,
+    FileOutlined,
+    PieChartOutlined,
+    TeamOutlined,
+    UserOutlined,
+} from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const menuItems = [
-    { key: 1, label: <Link to="/admin/dashboard">Dashboard</Link>, icon: <UserOutlined /> },
-    { key: 2, label: <Link to="/admin/products">Products</Link>, icon: <VideoCameraOutlined /> },
-    { key: 3, label: "Users", icon: <UploadOutlined /> },
-];
+type MenuItem = Required<MenuProps>["items"][number];
 
-interface LayoutAdminProps {
-    children?: ReactNode;
+type LayoutAdminProps = {
+    children: React.ReactNode;
+};
+
+function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[]
+): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+    } as MenuItem;
 }
 
-const LayoutAdmin: React.FC<LayoutAdminProps> = ({ children }) => {
+const items: MenuItem[] = [
+    getItem("Option 1", "1", <PieChartOutlined />),
+    getItem("Option 2", "2", <DesktopOutlined />),
+    getItem("User", "sub1", <UserOutlined />, [
+        getItem("Tom", "3"),
+        getItem("Bill", "4"),
+        getItem("Alex", "5"),
+    ]),
+    getItem("Team", "sub2", <TeamOutlined />, [getItem("Team 1", "6"), getItem("Team 2", "8")]),
+    getItem("Files", "9", <FileOutlined />),
+];
+
+const LayoutAdmin = ({ children }: LayoutAdminProps) => {
+    const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
     return (
-        <Layout className="h-lvh">
-            <Sider
-                breakpoint="lg"
-                collapsedWidth="0"
-                onBreakpoint={(broken) => {
-                    console.log(broken);
-                }}
-                onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
-                }}
-            >
+        <Layout style={{ minHeight: "100vh" }}>
+            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
                 <div className="demo-logo-vertical" />
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]} items={menuItems} />
+                <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} />
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }} />
-                <Content style={{ margin: "24px 16px 0" }}>
+                <Content style={{ margin: "0 auto", maxWidth: "1200px", width: "100%" }}>
                     <div
                         style={{
                             padding: 24,
                             minHeight: 360,
-                            background: colorBgContainer,
+
                             borderRadius: borderRadiusLG,
                         }}
                     >
-                        {children || <Outlet />}
+                        {children}
                     </div>
                 </Content>
                 <Footer style={{ textAlign: "center" }}>
-                    
+                    Ant Design ©{new Date().getFullYear()} Created by Ant UED
                 </Footer>
             </Layout>
         </Layout>

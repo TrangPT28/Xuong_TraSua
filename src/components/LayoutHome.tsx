@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../pages/Footer";
-import Header from "../pages/Header";
+import Footer from "../pages/Footer/Footer";
+import Header from "../pages/Header/Header";
 
 interface LayoutHomeProps {
     children?: React.ReactNode;
