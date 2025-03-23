@@ -52,7 +52,7 @@ const Cart = () => {
                       <h6 className="font-normal text-base leading-7 text-gray-500">
                         Trà sữa
                       </h6>
-                      <h6 className="font-medium text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-indigo-600">
+                      <h6 className="font-medium text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-amber-700">
                         25.000đ
                       </h6>
                     </div>
@@ -129,7 +129,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="flex items-center max-[500px]:justify-center md:justify-end max-md:mt-3 h-full">
-                    <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-indigo-600">
+                    <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-amber-700">
                       25.000đ
                     </p>
                   </div>
@@ -153,8 +153,8 @@ const Cart = () => {
                       <h6 className="font-normal text-base leading-7 text-gray-500">
                         Trà sữa
                       </h6>
-                      <h6 className="font-medium text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-indigo-600">
-                        $25.000đ
+                      <h6 className="font-medium text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-amber-700">
+                        25.000đ
                       </h6>
                     </div>
                   </div>
@@ -230,8 +230,8 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="flex items-center max-[500px]:justify-center md:justify-end max-md:mt-3 h-full">
-                    <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-indigo-600">
-                      $25.000đ
+                    <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-amber-700">
+                      25.000đ
                     </p>
                   </div>
                 </div>
@@ -255,8 +255,8 @@ const Cart = () => {
                       <h6 className="font-normal text-base leading-7 text-gray-500">
                         Trà sữa
                       </h6>
-                      <h6 className="font-medium text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-indigo-600">
-                        $25.000đ
+                      <h6 className="font-medium text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-amber-700">
+                        25.000đ
                       </h6>
                     </div>
                   </div>
@@ -332,14 +332,14 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="flex items-center max-[500px]:justify-center md:justify-end max-md:mt-3 h-full">
-                    <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-indigo-600">
+                    <p className="font-bold text-lg leading-8 text-gray-600 text-center transition-all duration-300 group-hover:text-amber-700">
                       25.000đ
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-end mt-8">
+              {/* <div className="flex items-center justify-end mt-8">
                 <button className="flex items-center px-5 py-3 rounded-full gap-2 border-none outline-0 group font-semibold text-lg leading-8 text-indigo-600 shadow-sm shadow-transparent transition-all duration-500 hover:text-indigo-700">
                   Nhận mã giảm giá
                   <svg
@@ -358,20 +358,20 @@ const Cart = () => {
                     />
                   </svg>
                 </button>
-              </div>
+              </div> */}
             </div>
 
-            <div className=" col-span-12 xl:col-span-4 bg-gray-50 w-full max-xl:px-6 max-w-3xl xl:max-w-lg mx-auto lg:pl-8 py-24">
+            <div className="col-span-12 xl:col-span-4 bg-gray-50 w-full max-xl:px-6 max-w-3xl xl:max-w-lg mx-auto lg:pl-8 py-24">
               <h2 className="font-manrope font-bold text-3xl leading-10 text-black pb-8 border-b border-gray-300">
                 Thông tin đơn hàng
               </h2>
               <div className="mt-8">
                 <div className="flex items-center justify-between pb-2">
                   <p className="font-normal text-lg leading-8 text-black">
-                    3 Sản phẩm:
+                    Số lượng:
                   </p>
                   <p className="font-medium text-lg leading-8 text-black">
-                    75.000đ
+                    3 sản phẩm
                   </p>
                 </div>
                 <div className="flex items-center justify-between pb-2">
@@ -382,9 +382,33 @@ const Cart = () => {
                     Nguyễn Văn Mừng
                   </p>
                 </div>
+                <div className="flex items-center justify-between pb-2">
+                  <p className="font-normal text-lg leading-8 text-black">
+                    Địa chỉ:
+                  </p>
+                  <p className="font-medium text-lg leading-8 text-black">
+                    Bắc Từ Liêm, Hà Nội
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pb-2">
+                  <p className="font-normal text-lg leading-8 text-black">
+                    Số điện thoại:
+                  </p>
+                  <p className="font-medium text-lg leading-8 text-black">
+                    0979449298
+                  </p>
+                </div>
+                <div className="flex items-center justify-between pb-2">
+                  <p className="font-normal text-lg leading-8 text-black">
+                    Phí vận chuyển:
+                  </p>
+                  <p className="font-medium text-lg leading-8 text-black">
+                    10.000đ
+                  </p>
+                </div>
                 <form>
                   <label className="font-normal text-lg leading-8 text-black">
-                    Số điện thoại:
+                    Mã giảm giá:
                   </label>
                   <div className="flex pb-4 w-full">
                     <div className="relative w-full ">
@@ -420,19 +444,19 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="flex items-center border-b border-gray-200">
-                    <button className="rounded-lg w-full bg-black py-2.5 px-4 text-white text-sm font-semibold text-center mb-8 transition-all duration-500 hover:bg-black/80">
-                      Đồng ý
+                    <button className="rounded-lg w-full bg-amber-700 py-2.5 px-4 text-white text-sm font-semibold text-center mb-8 transition-all duration-500 hover:bg-green-700 hover:text-white">
+                      Áp dụng
                     </button>
                   </div>
                   <div className="flex items-center justify-between py-8">
                     <p className="font-medium text-xl leading-8 text-black">
-                      3 Sản phẩm:
+                      Tổng tiền:
                     </p>
-                    <p className="font-semibold text-xl leading-8 text-indigo-600">
-                      75.000đ
+                    <p className="font-semibold text-xl leading-8 text-amber-800">
+                      85.000đ
                     </p>
                   </div>
-                  <button className="w-full text-center bg-indigo-600 rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-green-700">
+                  <button className="w-full text-center bg-amber-600 rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-green-700">
                     Thanh toán
                   </button>
                 </form>
