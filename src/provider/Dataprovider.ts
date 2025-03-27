@@ -1,7 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import axios from 'axios';
 
+<<<<<<< HEAD
 const API_URL = '  http://localhost:3000';
+=======
+const API_URL = 'http://localhost:3000';
+>>>>>>> feature/EditCRUD
 
 
 type getListParams = {
@@ -20,13 +24,19 @@ type updateParams = {
     variables: any,
     id: number
 }
+type deleteParams = {
+    resource: string,
+    id: number
+}
 const dataProvider = {
     getList: async ({ resource }: getListParams) => {
         try {
             const response = await axios.get(`${API_URL}/${resource}`);
+            
             if (response.status !== 200) new Error('Error');
             return {
                 data: response.data
+                
             }
         } catch (error: any) {
             throw new Error(error);
@@ -64,7 +74,13 @@ const dataProvider = {
         } catch (error: any) {
             throw new Error(error);
         }
+    },
+    deleteOne: async ({resource, id}: deleteParams) => {
+        const product = await axios.delete(`${API_URL}/${resource}/${id}`);
+        return {
+            data: product.data
+        }
     }
 }
 
-export const { getList, getOne, create, update, } = dataProvider;
+export const { getList, getOne, create, update, deleteOne } = dataProvider;

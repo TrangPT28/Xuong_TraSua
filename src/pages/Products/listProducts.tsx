@@ -1,105 +1,70 @@
-import { Button, Popconfirm, Skeleton, Table, Tag } from "antd";
-import { useState } from "react";
-import ProductFormDrawer from "../../components/ProductDrawer";
+import { Button, Popconfirm, Table, message } from "antd";
+
+import { Link } from "react-router-dom";
 import useList from "../../Hooks/useList";
+import { useDelete } from "../../Hooks/useDelete";
 
+const ProductList = () => {
+    const { data, isLoading, isError, error} = useList({ resource: "products" });
+    const [ messageApi, contextHolder ] = message.useMessage();
+    const { mutate } = useDelete({resource: "product"});
 
-const ProductListPage = () => {
-    const { data, isLoading, error, isError } = useList({ resource: "products" });
-    const [open, setOpen] = useState(false);
-    const [editingProductId, setEditingProductId] = useState<number | null>(null);
-
-    const dataSource = data?.data.map((product: any) => ({
-        key: product.id,
-        ...product,
+    const dataSource = data?.data?.map((item: any) => ({
+        key: item.id, ...item
     }));
 
     const columns = [
-        {
-            title: "Tên sản phẩm",
-            dataIndex: "name",
-            key: "name",
-        },
-        {
-            title: "Mô tả",
-            dataIndex: "description",
-            key: "description",
-        },
-        {
-            title: "Giá",
-            dataIndex: "price",
-            key: "price",
-        },
-        {
-            title: "Chất liệu",
-            dataIndex: "material",
-            key: "material",
-            render: (_: any, params2: any) => {
-                return (
-                    <div>
-                        {params2?.material.split(",").map((item: any) => {
-                            const color = item.length > 5 ? "geekblue" : "green";
-                            return (
-                                <Tag key={item} color={color}>
-                                    {item}
-                                </Tag>
-                            );
-                        })}
-                    </div>
-                );
-            },
-        },
-        {
-            dataIndex: "action",
-            render: (_: any, item: any) => {
-                return (
-                    <div className="flex space-x-2">
-                        <Button
-                            type="primary"
-                            onClick={() => {
-                                setEditingProductId(item.id);
-                                setOpen(true);
+        {title: "Tên sản phẩm", dataIndex: "name", key: "name"},
+        {title: "Giá", dataIndex: "price", key: "price"},
+        {title: "Danh mục", dataIndex: "category", key: "category"},
+        {title: "Hình ảnh", dataIndex: "image", key: "image"},
+        {title: "Mô tả", dataIndex: "description", key: "description"},
+        {dataIndex: "action",
+        render: (_: any, item: any) => {
+            return (
+                <div className="flex space-x-2">
+                    <Button type="primary">
+                            <Link to={`/admin/products/update/${item.id}`}>Cập nhật</Link>
+                        </Button>
+                        <Button type="primary">
+                            <Link to={`/admin/products/${item.id}`}>Chi tiết</Link>
+                        </Button>
+
+                        <Popconfirm
+                            title="Bạn có chắc chắn muốn xóa không?"
+                            onConfirm={() => {
+                                mutate(item.id, {
+                                    onSuccess: () => messageApi.success("Xóa thành công"),
+                                    onError: (error: any) => console.log(error?.response?.data),
+                                });
                             }}
                         >
-                            Sửa
-                        </Button>
-                        <Button type="primary" danger>
-                            <Popconfirm title="Xóa sản phẩm" onConfirm={() => {}}>
+                            <Button type="primary" danger>
                                 Xóa
-                            </Popconfirm>
-                        </Button>
-                    </div>
-                );
-            },
-        },
+                            </Button>
+                        </Popconfirm>
+                </div>
+            )
+
+        }},   
     ];
 
-    if (isLoading) return <Skeleton active />;
+    if (isLoading) return <div>Loading....</div>;
     if (isError) return <div>Error: {error.message}</div>;
-    if (!data) return <div>Không có sản phẩm nào</div>;
+    if (!data) return <div>Không có sản phẩm</div>;
+
     return (
         <div>
-            <div className="flex items-center justify-between  mb-3">
-                <h2 className="text-xl font-semibold">Sản phẩm</h2>
-                <Button
-                    type="primary"
-                    onClick={() => {
-                        setEditingProductId(null);
-                        setOpen(true);
-                    }}
-                >
+            <div className="flex items-center justify-between mb-4">
+                <h1 className="text-xl font-semibold">Sản phẩm</h1>
+                <Link type="primary" to="/admin/products/add">
                     Thêm sản phẩm
-                </Button>
+                </Link>
             </div>
-
             <Table dataSource={dataSource} columns={columns} />
-            <ProductFormDrawer
-                open={open}
-                onClose={() => setOpen(false)}
-                productId={editingProductId ?? undefined}
-            />
+            {contextHolder}
         </div>
     );
 };
 
-export default ProductListPage;
+export default ProductList;
