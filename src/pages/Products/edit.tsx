@@ -1,62 +1,90 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Form, Input, InputNumber, message, Skeleton } from "antd";
-import { useParams } from "react-router-dom";
-import useUpdate from "../../Hooks/useUpdate";
+import { Button, Form, Input, InputNumber, message, Radio, Select } from "antd";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useOne from "../../Hooks/useOne";
+import useUpdate from "../../Hooks/useUpdate";
 
-
-const ProductEdit = () => {
+const formItemLayout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 14 },
+    },
+};
+export const ProductEdit = () => {
     const { id } = useParams();
-    const [form] = Form.useForm();
-    const [messageApi, contextHolder] = message.useMessage();
-
     const { data, isLoading } = useOne({ resource: "products", id: Number(id) });
-    console.log(data);
-    const { mutate, isPending } = useUpdate({ resource: "products", id: Number(id) });
-    const onSubmit = (formData: any) => {
+    const [messageApi, contextHolder] = message.useMessage();
+    const { mutate } = useUpdate({ resource: "products", id: Number(id) });
+
+    const navigate = useNavigate();
+
+    const onFinish = (formData: any) => {
         mutate(formData, {
-            onSuccess: () => messageApi.success("Cập nhật sản phẩm thành công"),
-            onError: () => messageApi.error("Có lỗi xảy ra"),
+            onSuccess: () => {
+                messageApi.success("Cập nhật sản phẩm thành công");
+                setTimeout(() => {
+                    navigate("/admin/products");
+                }, 1000);
+            },
+            onError: (error: any) => console.log(error?.response?.data),
         });
     };
+    if (isLoading) return <div>Loading...</div>;
     return (
-        <div>
-            <div className="flex items-center justify-between  mb-3">
-                <h2 className="text-xl font-semibold">Thêm Sản phẩm</h2>
+        <>
+            <div className="flex items-center justify-between mb-4">
+                <h1 className="text-xl font-semibold">Cập nhật Sản phẩm</h1>
+                <Link to="/admin/products">
+                    <Button type="primary">Quay lại</Button>
+                </Link>
             </div>
-            <Skeleton loading={isLoading} active avatar>
-                <Form
-                    form={form}
-                    name="basic"
-                    labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 14 }}
-                    layout="horizontal"
-                    onFinish={onSubmit}
-                    initialValues={data?.data}
+            <Form onFinish={onFinish} {...formItemLayout} initialValues={data?.data}>
+                <Form.Item
+                    label="Tên sản phẩm"
+                    name="name"
+                    rules={[
+                        { required: true, message: "Tên sản phẩm không được để trống" },
+                        { min: 5, message: "Tên sản phẩm phải lớn hơn 5 ký tự" },
+                    ]}
                 >
-                    <Form.Item label="Tên sản phẩm" name="name">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="Giá sản phẩm" name="price">
-                        <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Mô tả" name="description">
-                        <Input.TextArea />
-                    </Form.Item>
-                    <Form.Item label="Chất liệu" name="material">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label={null}>
-                        <Button type="primary" htmlType="submit">
-                            {isPending ? <span>Đang tải...</span> : <span>Cập nhật sản phẩm</span>}
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </Skeleton>
-
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    label="Giá sản phẩm"
+                    name="price"
+                    rules={[
+                        { required: true, message: "Giá sản phẩm không được để trống" },
+                        { type: "number", min: 0, message: "Giá sản phẩm không được để số âm!" },
+                    ]}
+                >
+                    <InputNumber />
+                </Form.Item>
+                <Form.Item label="Danh mục" name="category">
+                    <Select>
+                        <Select.Option value="1">Trà sữa</Select.Option>
+                        <Select.Option value="2">Kem</Select.Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item label="Mô tả" name="description">
+                    <Input.TextArea rows={5} />
+                </Form.Item>
+                <Form.Item label="Trạng Thái" name="status">
+                    <Radio.Group>
+                        <Radio value={true}> Còn hàng</Radio>
+                        <Radio value={false}>Hết hàng </Radio>
+                    </Radio.Group>
+                </Form.Item>
+                <Form.Item label={null}>
+                    <Button type="primary" htmlType="submit">
+                        Cập nhật
+                    </Button>
+                </Form.Item>
+            </Form>
             {contextHolder}
-        </div>
+        </>
     );
 };
-
 export default ProductEdit;
