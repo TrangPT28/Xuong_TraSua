@@ -1,11 +1,7 @@
 
 import axios from 'axios';
 
-<<<<<<< HEAD
-const API_URL = '  http://localhost:3000';
-=======
 const API_URL = 'http://localhost:3000';
->>>>>>> feature/EditCRUD
 
 
 type getListParams = {
