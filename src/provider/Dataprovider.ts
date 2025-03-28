@@ -71,12 +71,21 @@ const dataProvider = {
             throw new Error(error);
         }
     },
-    deleteOne: async ({resource, id}: deleteParams) => {
-        const product = await axios.delete(`${API_URL}/${resource}/${id}`);
-        return {
-            data: product.data
+    deleteOne: async ({ resource, id }: deleteParams) => {
+        try {
+            const response = await axios.delete(`${API_URL}/products/${id}`);
+            
+            if (response.status !== 200 && response.status !== 204) {
+                throw new Error(`Delete failed with status: ${response.status}`);
+            }
+    
+            return { data: response.data };
+        } catch (error: any) {
+            console.error("Delete error:", error.response?.data || error.message);
+            throw new Error(error.response?.data?.message || "Failed to delete");
         }
     }
+    
 }
 
 export const { getList, getOne, create, update, deleteOne } = dataProvider;

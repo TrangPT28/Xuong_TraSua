@@ -7,7 +7,7 @@ type useDelete = {
 export const useDelete = ({resource}: useDelete) => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (id: number) => deleteOne({ resource, id }),
+        mutationFn: (id: number) => deleteOne({ resource: "products", id }),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [resource]
