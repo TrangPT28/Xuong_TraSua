@@ -1,241 +1,362 @@
-import { useState } from 'react'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { Radio, RadioGroup } from '@headlessui/react'
 
-const product = {
-  name: 'Trà sữa 3Q',
-  price: '25.000đ',
-  href: '#',
-  breadcrumbs: [
-    { name: 'Trang chủ', href: '#' },
-    { name: 'Trà sữa', href: '#' },
-  ],
-  images: [
-    {
-      src: 'https://mixuevietnam.com/wp-content/uploads/2024/07/Tra-Sua-3Q.jpg',
-      alt: 'Two each of gray, white, and black shirts laying flat.',
-    },
-    {
-      src: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-      alt: 'Model wearing plain black basic tee.',
-    },
-    {
-      src: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-      alt: 'Model wearing plain gray basic tee.',
-    },
-    {
-      src: 'https://mixuediemdien.com/wp-content/uploads/2023/07/Tra-Sua-3Q-600x600.jpg',
-      alt: 'Model wearing plain white basic tee.',
-    },
-  ],
-  // colors: [
-  //   { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-  //   { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-  //   { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-  // ],
-  sizes: [
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-  ],
-  description:
-    'Thành phần chính: Trà sữa, đường, sữa, trân châu, thạch, topping, ...',
-  highlights: [
-    'Ngon, bổ, rẻ',
-    'Nhiều chân trâu',
-    'Giao hàng tận nơi',
-  ]
-}
-const reviews = { href: '#', average: 4, totalCount: 117 }
+import { useState } from "react"
+import { Image } from "antd"
+import Link from "antd/es/typography/Link"
+import { Heart, Facebook, Twitter, Minus, Plus } from "lucide-react"
+import useOne from "../../Hooks/useOne"
+import { useParams } from "react-router-dom"
 
-function classNames(...classes:any) {
-  return classes.filter(Boolean).join(' ')
-}
+export default function ProductPage() {
+  const { id } = useParams()
+  const { data } = useOne({ resource: "products", id: Number(id) })
+  const [quantity, setQuantity] = useState(1)
+  const [activeTab, setActiveTab] = useState("Description")
+  const [selectedColor, setSelectedColor] = useState("purple")
 
-const ProductDetail = () => {
-  // const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0])
+  const incrementQuantity = () => {
+    setQuantity((prev) => prev + 1)
+  }
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1)
+    }
+  }
 
   return (
-    <div className="bg-white">
-      <div className="pt-6">
-        <nav aria-label="Breadcrumb">
-          <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div className="min-h-screen bg-[#ffffff]">
 
-            {product.breadcrumbs.map((breadcrumb) => (
-              <li>
-                <div className="flex items-center">
-                  <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
-                    {breadcrumb.name}
-                  </a>
-                  <svg fill="currentColor" width={16} height={20} viewBox="0 0 16 20" aria-hidden="true" className="h-5 w-4 text-gray-300">
-                    <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                  </svg>
-                </div>
-              </li>
-            ))}
-            <li className="text-sm">
-              <a href={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                {product.name}
-              </a>
-            </li>
-          </ol>
-        </nav>
-
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <img alt="" src={product.images[0].src} className="hidden size-full rounded-lg object-cover lg:block" />
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <img alt="" src={product.images[1].src} className="aspect-3/2 w-full rounded-lg object-cover" />
-            <img alt="" src={product.images[2].src} className="aspect-3/2 w-full rounded-lg object-cover" />
-          </div>
-          <img alt="" src={product.images[3].src} className="aspect-4/5 size-full object-cover sm:rounded-lg lg:aspect-auto" />
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
+        {/* Breadcrumb */}
+        <div className="flex items-center text-sm text-[#9f9f9f] mb-8">
+          <Link href="/" className="hover:text-[#b88e2f]">
+            Home
+          </Link>
+          <span className="mx-2">&gt;</span>
+          <Link href="/shop" className="hover:text-[#b88e2f]">
+            Shop
+          </Link>
+          <span className="mx-2">&gt;</span>
+          <span className="text-[#000000]">{data?.data.name}</span>
         </div>
 
-        {/* Product info */}
-        <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+        {/* Product Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          {/* Product Images */}
+          <div className="flex">
+           
+            <div className="flex-1 bg-[#f9f1e7] rounded-lg overflow-hidden">
+              <Image
+                src={data?.data?.image}
+                alt="Asgaard sofa"
+                width={500}
+                height={500}
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
 
-          {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
-            {/* Reviews */}
-            <div className="mt-6">
-              <div className="flex items-center">
-                <div className="flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      aria-hidden="true"
-                      className={classNames(
-                        reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
-                        'size-5 shrink-0',
-                      )}
-                    />
-                  ))}
-                </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  {reviews.totalCount} Lượt xem
-                </a>
-              </div>
-            </div>
+          {/* Product Details */}
+          <div>
+            <h1 className="text-4xl font-medium mb-2">{data?.data.name}</h1>
+            <p className="text-2xl text-[#b88e2f] mb-3">{data?.data.price}đ</p>
 
-            <form className="mt-10">
-              {/* Colors */}
-              {/* <div>
-                <h3 className="text-sm font-medium text-gray-900">Color</h3>
-
-                <fieldset aria-label="Choose a color" className="mt-4">
-                  <RadioGroup value={selectedColor} onChange={setSelectedColor} className="flex items-center gap-x-3">
-                    {product.colors.map((color) => (
-                      <Radio
-                        key={color.name}
-                        value={color}
-                        aria-label={color.name}
-                        className={classNames(
-                          color.selectedClass,
-                          'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-hidden data-checked:ring-2 data-focus:data-checked:ring-3 data-focus:data-checked:ring-offset-1',
-                        )}
-                      >
-                        <span
-                          aria-hidden="true"
-                          className={classNames(color.class, 'size-8 rounded-full border border-black/10')}
-                        />
-                      </Radio>
-                    ))}
-                  </RadioGroup>
-                </fieldset>
-              </div> */}
-
-              {/* Sizes */}
-              <div className="mt-10">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                  {/* <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    Size guide
-                  </a> */}
-                </div>
-
-                <fieldset aria-label="Choose a size" className="mt-4">
-                  <RadioGroup
-                    value={selectedSize}
-                    onChange={setSelectedSize}
-                    className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4"
+            {/* <div className="flex items-center mb-4">
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <svg
+                    key={star}
+                    className={`w-4 h-4 ${star <= 4 ? "text-[#b88e2f]" : "text-gray-300"}`}
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
                   >
-                    {product.sizes.map((size) => (
-                      <Radio
-                        key={size.name}
-                        value={size}
-                        disabled={!size.inStock}
-                        className={classNames(
-                          size.inStock
-                            ? 'cursor-pointer bg-white text-gray-900 shadow-xs'
-                            : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                          'group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-hidden data-focus:ring-2 data-focus:ring-indigo-500 sm:flex-1 sm:py-6',
-                        )}
-                      >
-                        <span>{size.name}</span>
-                        {size.inStock ? (
-                          <span
-                            aria-hidden="true"
-                            className="pointer-events-none absolute -inset-px rounded-md border-2 border-transparent group-data-checked:border-indigo-500 group-data-focus:border"
-                          />
-                        ) : (
-                          <span
-                            aria-hidden="true"
-                            className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                          >
-                            <svg
-                              stroke="currentColor"
-                              viewBox="0 0 100 100"
-                              preserveAspectRatio="none"
-                              className="absolute inset-0 size-full stroke-2 text-gray-200"
-                            >
-                              <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
-                            </svg>
-                          </span>
-                        )}
-                      </Radio>
-                    ))}
-                  </RadioGroup>
-                </fieldset>
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
               </div>
+              <span className="ml-2 text-sm text-gray-500">5 Customer Review</span>
+            </div> */}
+            {/* Size Selection */}
+            {/* <div className="mb-6">
+              <p className="text-sm mb-2">Size</p>
+              <div className="flex space-x-4">
+                {["S", "M", "L", "XL"].map((size) => (
+                  <button
+                    key={size}
+                    className={`w-10 h-10 flex items-center justify-center border ${
+                      selectedSize === size ? "bg-[#b88e2f] text-white border-[#b88e2f]" : "border-gray-300"
+                    }`}
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div> */}
 
-              <button type="submit" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
-                Thêm vào giỏ hàng
-              </button>
-            </form>
-          </div>
-
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16">
-            {/* Description and details */}
-            <div>
-              <h3 className="sr-only">Mô tả</h3>
-              <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+            {/* Color Selection */}
+            <div className="mb-8">
+              <p className="text-sm mb-2">Color</p>
+              <div className="flex space-x-4">
+                <button
+                  className={`w-8 h-8 rounded-full bg-[#816dfa] ${selectedColor === "purple" ? "ring-2 ring-offset-2 ring-[#b88e2f]" : ""}`}
+                  onClick={() => setSelectedColor("purple")}
+                />
+                <button
+                  className={`w-8 h-8 rounded-full bg-black ${selectedColor === "black" ? "ring-2 ring-offset-2 ring-[#b88e2f]" : ""}`}
+                  onClick={() => setSelectedColor("black")}
+                />
+                <button
+                  className={`w-8 h-8 rounded-full bg-[#b88e2f] ${selectedColor === "gold" ? "ring-2 ring-offset-2 ring-[#b88e2f]" : ""}`}
+                  onClick={() => setSelectedColor("gold")}
+                />
               </div>
             </div>
 
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Đặc biệt !!!</h3>
+            {/* Add to Cart */}
+            <div className="flex items-center space-x-4 mb-8">
+              <div className="flex items-center border border-gray-300">
+                <button className="w-10 h-10 flex items-center justify-center" onClick={decrementQuantity}>
+                  <Minus size={16} />
+                </button>
+                <span className="w-10 h-10 flex items-center justify-center">{quantity}</span>
+                <button className="w-10 h-10 flex items-center justify-center" onClick={incrementQuantity}>
+                  <Plus size={16} />
+                </button>
+              </div>
+              <button className="bg-[#b88e2f] text-white px-6 py-2 rounded">Add To Cart</button>
+              <button className="border border-gray-300 p-2 rounded">
+                <Heart size={20} />
+              </button>
+            </div>
 
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
+            {/* Product Info */}
+            <div className="space-y-2 text-sm border-t border-gray-200 pt-6">
+              <div className="flex">
+                <span className="w-24 text-[#9f9f9f]">SKU</span>
+                <span>: SS001</span>
+              </div>
+              <div className="flex">
+                <span className="w-24 text-[#9f9f9f]">Category</span>
+                <span>: Sofas</span>
+              </div>
+              <div className="flex">
+                <span className="w-24 text-[#9f9f9f]">Tags</span>
+                <span>: Sofa, Chair, Home, Shop</span>
+              </div>
+              <div className="flex items-center pt-2">
+                <span className="w-24 text-[#9f9f9f]">Share</span>
+                <div className="flex space-x-3">
+                  <Facebook size={16} />
+                  <Twitter size={16} />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
+        {/* Tabs */}
+        <div className="mb-16">
+          <div className="flex border-b border-gray-200 mb-8">
+            {["Description", "Additional Information", "Reviews (5)"].map((tab) => (
+              <button
+                key={tab}
+                className={`py-4 px-6 text-lg ${
+                  activeTab === tab ? "border-b-2 border-[#b88e2f] font-medium" : "text-[#9f9f9f]"
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          <div className="text-[#9f9f9f] leading-relaxed">
+            <p className="mb-4">
+            {data?.data.description}
+            </p>
+            
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div className="bg-[#f9f1e7] p-4 rounded">
+                <Image
+                  src="/placeholder.svg?height=300&width=500"
+                  alt="Sofa view 1"
+                  width={500}
+                  height={300}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="bg-[#f9f1e7] p-4 rounded">
+                <Image
+                  src="/placeholder.svg?height=300&width=500"
+                  alt="Sofa view 2"
+                  width={500}
+                  height={300}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div> */}
+          </div>
+        </div>
+
+        {/* Related Products */}
+        {/* <div className="mb-16">
+          <h2 className="text-3xl font-medium text-center mb-8">Related Products</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                id: 1,
+                name: "Syltherine",
+                description: "Stylish cafe chair",
+                price: "Rp 2,500,000",
+                oldPrice: "Rp 3,500,000",
+                discount: "-30%",
+              },
+              {
+                id: 2,
+                name: "Leviosa",
+                description: "Stylish cafe chair",
+                price: "Rp 2,500,000",
+                discount: null,
+              },
+              {
+                id: 3,
+                name: "Lolito",
+                description: "Luxury big sofa",
+                price: "Rp 7,000,000",
+                oldPrice: "Rp 14,000,000",
+                discount: "-50%",
+              },
+              {
+                id: 4,
+                name: "Respira",
+                description: "Outdoor bar table and stool",
+                price: "Rp 500,000",
+                discount: "New",
+              },
+            ].map((product) => (
+              <div key={product.id} className="group relative">
+                <div className="relative bg-[#f9f1e7] aspect-square rounded-lg overflow-hidden">
+                  <Image
+                    src="/placeholder.svg?height=300&width=300"
+                    alt={product.name}
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover"
+                  />
+                  {product.discount && (
+                    <div
+                      className={`absolute top-4 right-4 ${
+                        product.discount === "New" ? "bg-[#2ec1ac]" : "bg-[#e97171]"
+                      } text-white text-xs px-3 py-1 rounded`}
+                    >
+                      {product.discount}
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button className="bg-white text-black px-4 py-2 rounded">Add to cart</button>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <h3 className="font-medium">{product.name}</h3>
+                  <p className="text-sm text-[#898989]">{product.description}</p>
+                  <div className="flex items-center mt-1">
+                    <span className="font-medium">{product.price}</span>
+                    {product.oldPrice && (
+                      <span className="ml-2 text-sm text-[#b0b0b0] line-through">{product.oldPrice}</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center mt-8">
+            <button className="border border-[#b88e2f] text-[#b88e2f] px-8 py-2 hover:bg-[#b88e2f] hover:text-white transition-colors">
+              Show More
+            </button>
+          </div>
+        </div> */}
+      </main>
+
+      {/* Shopping Cart Sidebar */}
+     
+
+      {/* Footer */}
+      <footer className="bg-[#f9f1e7] py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">Furniro.</h3>
+              <p className="text-sm text-[#9f9f9f] mb-4">400 University Drive Suite 200 Coral Gables, FL 33134 USA</p>
+            </div>
+
+            <div>
+              <h4 className="text-[#9f9f9f] mb-4">Links</h4>
+              <ul className="space-y-3">
+                <li>
+                  <Link href="/" className="text-sm hover:text-[#b88e2f]">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shop" className="text-sm hover:text-[#b88e2f]">
+                    Shop
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="text-sm hover:text-[#b88e2f]">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-sm hover:text-[#b88e2f]">
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[#9f9f9f] mb-4">Help</h4>
+              <ul className="space-y-3">
+                <li>
+                  <Link href="/" className="text-sm hover:text-[#b88e2f]">
+                    Payment Options
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/" className="text-sm hover:text-[#b88e2f]">
+                    Returns
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/" className="text-sm hover:text-[#b88e2f]">
+                    Privacy Policies
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[#9f9f9f] mb-4">Newsletter</h4>
+              <div className="flex">
+                <input
+                  type="email"
+                  placeholder="Enter Your Email Address"
+                  className="flex-1 border-b border-[#9f9f9f] bg-transparent py-1 px-2 text-sm focus:outline-none"
+                />
+                <button className="bg-[#b88e2f] text-white px-4 py-1 text-sm">Theo dõi</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-300 mt-12 pt-6 text-center text-sm text-[#9f9f9f]">
+            2023 furniro. All rights reserved
+          </div>
+        </div>
+      </footer>
     </div>
   )
-};
-export default ProductDetail;
+}
+
