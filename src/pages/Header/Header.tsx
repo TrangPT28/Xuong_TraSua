@@ -15,7 +15,7 @@ const Header = () => {
                 <nav>
                     <ul className="flex space-x-6 text-gray-600 font-medium">
                         <li className="hover:text-black cursor-pointer"><Link to="ListProductClien">Home</Link></li>
-                        <li className="hover:text-black cursor-pointer">Shop</li>
+                        <li className="hover:text-black cursor-pointer"><Link to="Category">Shop</Link></li>
                         <li className="hover:text-black cursor-pointer">About</li>
                         <li className="hover:text-black cursor-pointer">Contact</li>
                     </ul>

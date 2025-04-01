@@ -13,6 +13,7 @@ import ProductEdit from './pages/Products/edit'
 import ProductAdd from './pages/Products/creater'
 import ProductDetail from './pages/ListClien/ProductDetail'
 import PostsPage from './pages/Products/listProducts'
+import ProductCategory from './pages/ListClien/ProductCategory'
 
 
 function App() {
@@ -51,6 +52,10 @@ function App() {
           <Route index element={<Navigate to='ListProductClien' />} />
           <Route path='ListProductClien'>
             <Route index element={<ListProductClien />} />
+            <Route path='detail/:id' element={<ProductDetail />} />
+          </Route>
+          <Route path='Category'>
+            <Route index element={<ProductCategory />} />
             <Route path='detail/:id' element={<ProductDetail />} />
           </Route>
           
